@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f3eee4">
+    <title>Hobi — Alyssa Ananta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<div class="preloader" id="preloader">
+    <div class="preloader-ring"></div>
+    <div class="preloader-text">Hobi</div>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+    <a href="index.html" class="logo magnetic">A</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul id="navMenu">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="karier.html">Karier</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="favorite.html">Favorite</a></li>
+        <li><a href="hobi.html">Hobi</a></li>
+        <li><a href="idola.html">Idola</a></li>
+        <li><a href="pencapaian.html">Pencapaian</a></li>
+        <li><a href="dream.html">Dream</a></li>
+        <li><a href="lagu.html">Lagu</a></li>
+        <li><a href="fakta.html">Fakta</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="sosmed.html">Sosial</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+    </ul>
+</nav>
+
+<section class="page-hero">
+    <h1>Hobi</h1>
+    <p class="page-subtitle">Kegiatan yang bikin betah</p>
+</section>
+
+<section class="page-body">
+    <div class="hobi-grid">
+
+        <article class="hobi-card" data-e="🍳">
+            <div class="hobi-top"><div class="dream-icon">🍳</div><span class="hobi-no">01</span></div>
+            <h3>Memasak</h3>
+            <p>Dapur jadi tempat santai untuk mencoba resep baru dan meracik makanan favorit sendiri. Dari sushi sampai jajanan kekinian, selalu ada yang menarik untuk dicoba.</p>
+            <div class="chips"><span>Resep baru</span><span>Makanan favorit</span><span>Santai di dapur</span></div>
+        </article>
+
+        <article class="hobi-card" data-e="🏎️">
+            <div class="hobi-top"><div class="dream-icon">🏎️</div><span class="hobi-no">02</span></div>
+            <h3>Otomotif</h3>
+            <p>Kecintaan pada mobil sport berlanjut sampai ke lintasan drifting. Tahun 2024 ia ikut Women Drift Challenge dan membuktikan bahwa dunia otomotif terbuka untuk siapa saja.</p>
+            <div class="chips"><span>Drifting</span><span>Mobil sport</span><span>Women Drift Challenge</span></div>
+        </article>
+
+        <article class="hobi-card" data-e="🎮">
+            <div class="hobi-top"><div class="dream-icon">🎮</div><span class="hobi-no">03</span></div>
+            <h3>Main Game</h3>
+            <p>Hobi yang membawanya ke dunia streaming. Mobile Legends, PUBG Mobile, dan Valorant jadi teman bermain, baik sendiri maupun bersama komunitas.</p>
+            <div class="chips"><span>Mobile Legends</span><span>PUBG Mobile</span><span>Valorant</span></div>
+        </article>
+
+        <article class="hobi-card" data-e="🛍️">
+            <div class="hobi-top"><div class="dream-icon">🛍️</div><span class="hobi-no">04</span></div>
+            <h3>Shopping</h3>
+            <p>Berburu outfit dan barang yang disuka, terutama fashion hijab yang sering ia bagikan lewat Instagram. Belanja jadi cara menyenangkan untuk mengekspresikan gaya.</p>
+            <div class="chips"><span>Fashion hijab</span><span>Outfit</span><span>Gaya pribadi</span></div>
+        </article>
+
+    </div>
+</section>
+
+<footer>© 2026 Shiro</footer>
+
+<script>
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 800));
+    
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('active'); navMenu.classList.toggle('active'); });
+    navMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { menuToggle.classList.remove('active'); navMenu.classList.remove('active'); }));
+
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouch) {
+        const cd = document.getElementById('cursorDot'), cr = document.getElementById('cursorRing');
+        let mx=0,my=0,rx=0,ry=0;
+        document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cd.style.left=mx+'px'; cd.style.top=my+'px'; });
+        (function a(){ rx+=(mx-rx)*.15; ry+=(my-ry)*.15; cr.style.left=rx+'px'; cr.style.top=ry+'px'; requestAnimationFrame(a); })();
+        document.addEventListener('mouseover', e => cr.classList.toggle('hover', !!e.target.closest('a, button, .dream-card')));
+    }
+    
+    window.addEventListener('scroll', () => {
+        const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scrollProgress').style.width = p + '%';
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+</script>
+<script src="extra.js"></script>
+</body>
+</html>

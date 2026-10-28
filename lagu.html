@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f3eee4">
+    <title>Lagu — Alyssa Ananta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<div class="preloader" id="preloader">
+    <div class="preloader-ring"></div>
+    <div class="preloader-text">Lagu</div>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+    <a href="index.html" class="logo magnetic">A</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+<ul id="navMenu">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="karier.html">Karier</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="favorite.html">Favorite</a></li>
+        <li><a href="hobi.html">Hobi</a></li>
+        <li><a href="idola.html">Idola</a></li>
+        <li><a href="pencapaian.html">Pencapaian</a></li>
+        <li><a href="dream.html">Dream</a></li>
+        <li><a href="lagu.html">Lagu</a></li>
+        <li><a href="fakta.html">Fakta</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="sosmed.html">Sosial</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+    </ul>
+
+</nav>
+
+<section class="page-hero">
+    <h1>Lagu</h1>
+    <p class="page-subtitle">Diskografi</p>
+</section>
+
+<section class="lagu-hero" style="padding-top:0;">
+    <div class="lagu-list">
+        <a href="https://open.spotify.com/search/SAKIT%20Alyssa%20Ananta" target="_blank" rel="noopener" class="lagu-card">
+            <div class="lagu-cover"><img src="foto/musik1.jpg" alt="SAKIT" loading="lazy"></div>
+            <div class="lagu-detail">
+                <h3>SAKIT</h3>
+                <p class="meta">Single Debut · 27 Februari 2026 · Prod. Mai Armada</p>
+                <p>Lagu ballad ciptaan Mai Armada (gitaris Armada). Bercerita tentang seseorang yang merasa dikhianati dan memilih pergi meski harus membawa rasa sakit.</p>
+                <span class="lagu-btn">Dengarkan di Spotify →</span>
+            </div>
+        </a>
+
+        <a href="https://open.spotify.com/search/Blanket%20%26%20Moon%20VVONDERLAND" target="_blank" rel="noopener" class="lagu-card">
+            <div class="lagu-cover"><img src="foto/musik2.jpg" alt="Blanket & Moon" loading="lazy"></div>
+            <div class="lagu-detail">
+                <h3>Blanket & Moon</h3>
+                <p class="meta">feat. VVONDERLAND · 18 Mei 2026 · Alternative Pop</p>
+                <p>Lagu tentang romansa sederhana anak muda. Lirik seperti "secondhand blankets" dan "cheapest wine" menggambarkan cinta yang tidak mewah tapi nyaman.</p>
+                <span class="lagu-btn">Dengarkan di Spotify →</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<footer>© 2026 Shiro</footer>
+
+<script>
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1000);
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (!isTouchDevice) {
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+        (function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animate);
+        })();
+        document.querySelectorAll('a').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scrollProgress').style.width = p + '%';
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 80) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.lagu-card').forEach(el => observer.observe(el));
+
+    if (!isTouchDevice) {
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', e => {
+                const r = el.getBoundingClientRect();
+                el.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.3}px,${(e.clientY-r.top-r.height/2)*0.3}px)`;
+            });
+            el.addEventListener('mouseleave', () => el.style.transform = '');
+        });
+    }
+
+    
+</script>
+
+<script src="extra.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f3eee4">
+    <title>Fakta unik — Alyssa Ananta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+    <div class="preloader-ring"></div>
+    <div class="preloader-text">Fakta</div>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+    <a href="index.html" class="logo magnetic">A</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="karier.html">Karier</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="favorite.html">Favorite</a></li>
+        <li><a href="hobi.html">Hobi</a></li>
+        <li><a href="idola.html">Idola</a></li>
+        <li><a href="pencapaian.html">Pencapaian</a></li>
+        <li><a href="dream.html">Dream</a></li>
+        <li><a href="lagu.html">Lagu</a></li>
+        <li><a href="fakta.html">Fakta</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="sosmed.html">Sosial</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+    </ul>
+</nav>
+
+<section class="page-hero">
+    <h1>Fakta unik</h1>
+    <p class="page-subtitle">Hal-hal yang jarang diketahui</p>
+</section>
+
+<section class="page-body">
+    <div class="fakta-grid">
+        <article class="fakta-card">
+            <div class="fakta-icon">🌱</div>
+            <div><h3>Member OG B2E</h3><p>Alyssa termasuk member awal B2E, sirkel streamer yang sekarang bernama B2F.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">👥</div>
+            <div><h3>Tergabung di dua sirkel</h3><p>Saat ini ia berada di dua sirkel streamer sekaligus: B2F dan KCG.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">🧕</div>
+            <div><h3>Satu-satunya yang berhijab</h3><p>Di B2F maupun KCG, Alyssa adalah satu-satunya member berhijab.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">🎸</div>
+            <div><h3>Diproduseri gitaris Armada</h3><p>Masuk ke dunia musik dengan produser langsung dari gitaris Armada, Mai Armada.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">⏸️</div>
+            <div><h3>Pernah hilang 9 bulan</h3><p>Sempat menghilang sekitar 9 bulan dari dunia streaming sebelum kembali.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">💻</div>
+            <div><h3>PC untuk main bareng mantan</h3><p>Ia membeli PC supaya bisa main game bersama mantan. Setelah PC terbeli, hubungan mereka justru berakhir.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">📺</div>
+            <div><h3>Hampir stream di Nimo</h3><p>Sempat ingin streaming di Nimo, tapi platformnya keburu tutup.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">🤝</div>
+            <div><h3>Diajak Fahmi Rexy</h3><p>Alyssa masuk dunia streaming setelah diajak temannya, Fahmi Rexy.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">🚀</div>
+            <div><h3>Suka hal baru</h3><p>Selalu ingin mencoba hal-hal baru, dari streaming, drifting, sampai musik.</p></div>
+        </article>
+        <article class="fakta-card">
+            <div class="fakta-icon">🦄</div>
+            <div><h3>Nickname dxsh</h3><p>Nickname game “dxsh” terinspirasi dari My Little Pony.</p></div>
+        </article>
+    </div>
+</section>
+
+<footer>© 2026 Shiro</footer>
+
+<script>
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1000);
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (!isTouchDevice) {
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+        (function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animate);
+        })();
+        document.addEventListener('mouseover', e => {
+            cursorRing.classList.toggle('hover', !!e.target.closest('a, button, .idola-card, .dream-card, .fakta-card'));
+        });
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', e => {
+                const r = el.getBoundingClientRect();
+                el.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.3}px,${(e.clientY-r.top-r.height/2)*0.3}px)`;
+            });
+            el.addEventListener('mouseleave', () => el.style.transform = '');
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scrollProgress').style.width = p + '%';
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    
+
+</script>
+
+<script src="extra.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f3eee4">
+    <title>Quiz — Alyssa Ananta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<div class="preloader" id="preloader">
+    <div class="preloader-ring"></div>
+    <div class="preloader-text">Quiz</div>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+    <a href="index.html" class="logo magnetic">A</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="karier.html">Karier</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="favorite.html">Favorite</a></li>
+        <li><a href="hobi.html">Hobi</a></li>
+        <li><a href="idola.html">Idola</a></li>
+        <li><a href="pencapaian.html">Pencapaian</a></li>
+        <li><a href="dream.html">Dream</a></li>
+        <li><a href="lagu.html">Lagu</a></li>
+        <li><a href="fakta.html">Fakta</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="sosmed.html">Sosial</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+    </ul>
+</nav>
+
+<section class="page-hero">
+    <h1>Quiz</h1>
+    <p class="page-subtitle">Uji seberapa kenal kamu</p>
+</section>
+
+<section class="page-body quiz-wrap">
+    <div class="quiz-box" id="quizBox" aria-live="polite">
+        <div id="quizStart">
+            <h2 class="quiz-title">Seberapa kenal kamu dengan Alyssa?</h2>
+            <p class="quiz-lead">20 pertanyaan pilihan ganda dari biodata, karier, hobi, dan fakta unik di situs ini.</p>
+            <button class="btn btn-primary" id="quizGo" type="button"><span>Mulai quiz</span><span class="arrow">→</span></button>
+        </div>
+
+        <div id="quizPlay" hidden>
+            <div class="quiz-meta">
+                <span id="quizCount">Pertanyaan 1 dari 10</span>
+                <span id="quizScore">Skor 0</span>
+            </div>
+            <div class="quiz-bar"><div id="quizFill"></div></div>
+            <h2 class="quiz-q" id="quizQ"></h2>
+            <div class="quiz-options" id="quizOpts"></div>
+            <p class="quiz-note" id="quizNote"></p>
+            <button class="btn btn-primary quiz-next" id="quizNext" type="button" hidden><span id="quizNextLbl">Lanjut</span><span class="arrow">→</span></button>
+        </div>
+
+        <div id="quizEnd" hidden>
+            <div class="quiz-result-num" id="quizResultNum"></div>
+            <h2 class="quiz-title" id="quizResultTitle"></h2>
+            <p class="quiz-lead" id="quizResultText"></p>
+            <div class="quiz-actions">
+                <button class="btn btn-primary" id="quizAgain" type="button"><span>Ulangi quiz</span></button>
+                <a class="btn btn-outline" href="fakta.html"><span>Baca fakta unik</span><span class="arrow">→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>© 2026 Shiro</footer>
+
+<script>
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1000);
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (!isTouchDevice) {
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+        (function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animate);
+        })();
+        document.addEventListener('mouseover', e => {
+            cursorRing.classList.toggle('hover', !!e.target.closest('a, button, .idola-card, .dream-card, .fakta-card'));
+        });
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', e => {
+                const r = el.getBoundingClientRect();
+                el.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.3}px,${(e.clientY-r.top-r.height/2)*0.3}px)`;
+            });
+            el.addEventListener('mouseleave', () => el.style.transform = '');
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scrollProgress').style.width = p + '%';
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    
+
+    const QUESTIONS = [
+        { q: 'Kapan Alyssa Ananta lahir?', a: ['17 Desember 2002', '17 Desember 2000', '27 Desember 2002', '17 November 2002'], c: 0 },
+        { q: 'Di kota mana Alyssa lahir?', a: ['Jakarta', 'Medan', 'Bandung', 'Surabaya'], c: 1 },
+        { q: 'Nickname game “dxsh” terinspirasi dari apa?', a: ['My Little Pony', 'Hello Kitty', 'Frozen', 'Barbie'], c: 0 },
+        { q: 'Siapa teman yang mengajak Alyssa masuk dunia streaming?', a: ['Windah Basudara', 'Fahmi Rexy', 'Mai Armada', 'DeanKT'], c: 1 },
+        { q: 'Berapa lama Alyssa sempat menghilang dari dunia streaming?', a: ['Sekitar 3 bulan', 'Sekitar 6 bulan', 'Sekitar 9 bulan', 'Sekitar 2 tahun'], c: 2 },
+        { q: 'Siapa yang memproduseri single debut “Sakit”?', a: ['Tulus', 'Mai Armada', 'Keshi', 'VVONDERLAND'], c: 1 },
+        { q: 'Dua sirkel streamer apa yang diikuti Alyssa saat ini?', a: ['B2F dan KCG', 'EVOS dan RRQ', 'B2E dan ONIC', 'KCG dan Alter Ego'], c: 0 },
+        { q: 'Tahun berapa Alyssa diperkenalkan sebagai Brand Ambassador EVOS?', a: ['2021', '2022', '2023', '2025'], c: 2 },
+        { q: 'Kenapa Alyssa dulu membeli PC?', a: ['Untuk kuliah', 'Untuk main game bareng mantan', 'Untuk edit video', 'Hadiah ulang tahun'], c: 1 },
+        { q: 'Platform streaming apa yang sempat ingin ia pakai tapi keburu tutup?', a: ['Nimo', 'Twitch', 'Facebook Gaming', 'Kick'], c: 0 },
+        { q: 'Apa zodiak Alyssa Ananta?', a: ['Sagitarius', 'Scorpio', 'Capricorn', 'Libra'], c: 0 },
+        { q: 'Kapan single debut “Sakit” dirilis?', a: ['18 Mei 2026', '17 Desember 2025', '27 Februari 2026', '16 September 2023'], c: 2 },
+        { q: 'Siapa yang berkolaborasi dengan Alyssa di lagu “Blanket & Moon”?', a: ['Mai Armada', 'VVONDERLAND', 'Keshi', 'Chase Atlantic'], c: 1 },
+        { q: 'Kompetisi drifting apa yang diikuti Alyssa pada 2024?', a: ['Asian Drift Cup', 'Indonesia Drift Series', 'Tokyo Drift Open', 'Women Drift Challenge'], c: 3 },
+        { q: 'Berapa engagement rate TikTok Alyssa?', a: ['15,85%', '5,85%', '25,85%', '1,58%'], c: 0 },
+        { q: 'Mobil sport mana yang jadi favorit Alyssa?', a: ['Nissan GT-R', 'Toyota Supra', 'Porsche 911 GT3 RS', 'Ford Mustang'], c: 2 },
+        { q: 'Minuman apa yang jadi favorit Alyssa?', a: ['Boba', 'Matcha', 'Es teh', 'Jus alpukat'], c: 1 },
+        { q: 'Di umur berapa Alyssa membeli rumah pertamanya?', a: ['22 tahun', '24 tahun', '26 tahun', '28 tahun'], c: 1 },
+        { q: 'Mana yang termasuk hobi Alyssa?', a: ['Berkebun', 'Mendaki gunung', 'Fotografi', 'Memasak'], c: 3 },
+        { q: 'Game FPS apa yang jadi favorit Alyssa?', a: ['Genshin Impact', 'Minecraft', 'Valorant', 'Roblox'], c: 2 }
+    ];
+    const RESULTS = [
+        [9, 'Fans sejati', 'Kamu hafal hampir semua tentang Alyssa. Tidak ada yang lolos dari kamu.'],
+        [6, 'Lumayan kenal', 'Pengetahuanmu sudah bagus. Baca halaman Fakta unik untuk menyempurnakannya.'],
+        [3, 'Baru kenalan', 'Kamu sudah punya dasarnya. Jelajahi halaman Biodata dan Karier, lalu coba lagi.'],
+        [0, 'Mulai dari awal', 'Tidak apa-apa. Baca Biodata, Karier, dan Fakta unik, lalu ulangi quiz-nya.']
+    ];
+    const $ = id => document.getElementById(id);
+    let order, idx, score, locked;
+
+    function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+        return a;
+    }
+    function show(id) { ['quizStart', 'quizPlay', 'quizEnd'].forEach(x => $(x).hidden = x !== id); }
+
+    function start() {
+        order = shuffle(QUESTIONS.map((_, i) => i));
+        idx = 0; score = 0;
+        show('quizPlay');
+        render();
+    }
+    function render() {
+        locked = false;
+        const item = QUESTIONS[order[idx]];
+        $('quizCount').textContent = `Pertanyaan ${idx + 1} dari ${QUESTIONS.length}`;
+        $('quizScore').textContent = `Skor ${score}`;
+        $('quizFill').style.width = (idx / QUESTIONS.length * 100) + '%';
+        $('quizQ').textContent = item.q;
+        $('quizNote').textContent = '';
+        $('quizNext').hidden = true;
+        const opts = $('quizOpts');
+        opts.innerHTML = '';
+        shuffle(item.a.map((text, i) => ({ text, ok: i === item.c }))).forEach(o => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.className = 'quiz-opt'; b.textContent = o.text; b.dataset.ok = o.ok;
+            b.addEventListener('click', () => pick(b));
+            opts.appendChild(b);
+        });
+    }
+    function pick(btn) {
+        if (locked) return;
+        locked = true;
+        const right = btn.dataset.ok === 'true';
+        if (right) score++;
+        document.querySelectorAll('.quiz-opt').forEach(b => {
+            b.disabled = true;
+            if (b.dataset.ok === 'true') b.classList.add('correct');
+        });
+        if (!right) btn.classList.add('wrong');
+        $('quizScore').textContent = `Skor ${score}`;
+        $('quizNote').textContent = right ? 'Benar!' : 'Belum tepat. Jawaban yang benar ditandai hijau.';
+        $('quizFill').style.width = ((idx + 1) / QUESTIONS.length * 100) + '%';
+        $('quizNextLbl').textContent = idx === QUESTIONS.length - 1 ? 'Lihat hasil' : 'Lanjut';
+        $('quizNext').hidden = false;
+        $('quizNext').focus();
+    }
+    function next() {
+        if (idx < QUESTIONS.length - 1) { idx++; render(); return; }
+        const r = RESULTS.find(x => score >= x[0]);
+        $('quizResultNum').textContent = `${score}/${QUESTIONS.length}`;
+        $('quizResultTitle').textContent = r[1];
+        $('quizResultText').textContent = r[2];
+        show('quizEnd');
+    }
+    $('quizGo').addEventListener('click', start);
+    $('quizNext').addEventListener('click', next);
+    $('quizAgain').addEventListener('click', start);
+
+</script>
+
+<script src="extra.js"></script>
+</body>
+</html>

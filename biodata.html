@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f3eee4">
+    <title>Biodata — Alyssa Ananta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+    <div class="preloader-ring"></div>
+    <div class="preloader-text">Biodata</div>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+    <a href="index.html" class="logo magnetic">A</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+<ul id="navMenu">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="karier.html">Karier</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="favorite.html">Favorite</a></li>
+        <li><a href="hobi.html">Hobi</a></li>
+        <li><a href="idola.html">Idola</a></li>
+        <li><a href="pencapaian.html">Pencapaian</a></li>
+        <li><a href="dream.html">Dream</a></li>
+        <li><a href="lagu.html">Lagu</a></li>
+        <li><a href="fakta.html">Fakta</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="sosmed.html">Sosial</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+    </ul>
+</nav>
+
+<section class="bio-hero">
+    <div class="bio-photo-wrapper">
+        <img src="foto/alyssa.jpg" alt="Alyssa Ananta" class="bio-photo">
+    </div>
+    <h1>Biodata</h1>
+    <p class="bio-tagline">Alyssa Ananta</p>
+</section>
+
+<section class="bio-section">
+    <div class="bio-simple-card">
+        <div class="bio-item">
+            <div class="bio-item-label">Nama Lengkap</div>
+            <div class="bio-item-value">Alyssa Ananta</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Tanggal Lahir</div>
+            <div class="bio-item-value">17 Desember 2002</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Tempat Lahir</div>
+            <div class="bio-item-value">Medan, Sumatera Utara</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Domisili</div>
+            <div class="bio-item-value">Jakarta, Indonesia</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Agama</div>
+            <div class="bio-item-value">Islam</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Zodiak</div>
+            <div class="bio-item-value">Sagitarius</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Profesi</div>
+            <div class="bio-item-value">Content Creator, Streamer, Singer, Drifter</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Circle Streamer</div>
+            <div class="bio-item-value">B2F dan KCG</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Mantan BA</div>
+            <div class="bio-item-value">EVOS Esports (2023–2025)</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Hobi</div>
+            <div class="bio-item-value">Memasak, Otomotif, Main Game, Shopping</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">Instagram</div>
+            <div class="bio-item-value">@alyssaanantaa</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">TikTok</div>
+            <div class="bio-item-value">@dxsh12</div>
+        </div>
+        <div class="bio-item">
+            <div class="bio-item-label">YouTube</div>
+            <div class="bio-item-value">@alyssaananta17</div>
+        </div>
+    </div>
+
+    <div class="bio-quote">
+        <p>"Cinta tidak selalu hadir dalam kemewahan, melainkan lewat rasa nyaman."</p>
+        <p class="author">— Alyssa Ananta</p>
+    </div>
+</section>
+
+<footer>© 2026 Shiro</footer>
+
+<script>
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1000);
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (!isTouchDevice) {
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+        (function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animate);
+        })();
+        document.querySelectorAll('a, .bio-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scrollProgress').style.width = p + '%';
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 80) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.bio-simple-card, .bio-quote').forEach(el => observer.observe(el));
+
+    if (!isTouchDevice) {
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', e => {
+                const r = el.getBoundingClientRect();
+                el.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.3}px,${(e.clientY-r.top-r.height/2)*0.3}px)`;
+            });
+            el.addEventListener('mouseleave', () => el.style.transform = '');
+        });
+    }
+
+    
+</script>
+
+<script src="extra.js"></script>
+</body>
+</html>
